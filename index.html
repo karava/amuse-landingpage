@@ -2,14 +2,56 @@
 <html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-72578EXTHP"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DGKG6XPWJJ"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-72578EXTHP');
+    gtag('config', 'G-DGKG6XPWJJ');
     </script>
+    
+    <!-- Enhanced Analytics Tracking -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Track download button clicks
+        document.querySelectorAll('a[href*="amuse.app.link"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const location = this.closest('section')?.className || 'header';
+                gtag('event', 'download_click', {
+                    'event_category': 'conversion',
+                    'event_label': location
+                });
+            });
+        });
+        
+        // Track scroll depth
+        let scrolled = {25: false, 50: false, 75: false, 90: false};
+        window.addEventListener('scroll', function() {
+            const percent = Math.round((window.scrollY / 
+                (document.body.scrollHeight - window.innerHeight)) * 100);
+            
+            Object.keys(scrolled).forEach(milestone => {
+                if (percent >= milestone && !scrolled[milestone]) {
+                    scrolled[milestone] = true;
+                    gtag('event', 'scroll_depth', {
+                        'event_category': 'engagement',
+                        'event_label': milestone + '%'
+                    });
+                }
+            });
+        });
+        
+        // Track time on page
+        setTimeout(() => {
+            gtag('event', 'time_on_page', {
+                'event_category': 'engagement',
+                'event_label': '30_seconds'
+            });
+        }, 30000);
+    });
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amuse</title>
